@@ -46,7 +46,7 @@ InstallSpaceMath[]:=
 				  ]
 			  ];
 
-			TempCompressFolder = URLSave["https://github.com/spacemathapp/spacemath/archive/refs/heads/development.zip",CreateTemporary[]];
+			TempCompressFolder = URLSave["https://github.com/spacemathproject/spacemathapp/archive/refs/heads/master.zip",CreateTemporary[]];
 			DecompressTempFolder = TempCompressFolder<>".dir";
 
 			ExtractArchive[TempCompressFolder, DecompressTempFolder];
