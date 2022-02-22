@@ -103,16 +103,16 @@ BRhetau[ghetau_]:=BRhfifj[ghetau,1,me,mtau]
 The analytical expression can be consulted in: arXiv:1801.00839v3 eq. A2 (appendix A);
 Definitions;*)
 
-\[Lambda]h[mh_]:=Log[mh^2/mtau^2]-4/3;
-\[Lambda]A[mA_]:=Log[mA^2/mtau^2]-4/3
-\[Lambda]H[mH_]:=Log[mH^2/mtau^2]-4/3
+\[Lambda]h[mh_] := Log[mh^2/mtau^2]-4/3;
+\[Lambda]A[mA_] := Log[mA^2/mtau^2]-4/3;
+\[Lambda]H[mH_] := Log[mH^2/mtau^2]-4/3;
 (**************************************************)
 (**************************************************)
 WILSON COEFFICIENTS at ONE-LOOP;
 
-CLh[ghtaumu_,ghtautau_,mh_]:=(ghtaumu*ghtautau)*\[Lambda]h[mh]/((2) (mh^2))
-CLA[gAtaumu_,gAtautau_,mA_]:=(gAtaumu*gAtautau)*\[Lambda]A[mA]/((2) (mA^2))
-CLH[gHtaumu_,gHtautau_,mH_]:=(gHtaumu*gHtautau)*\[Lambda]H[mH]/((2) (mH^2))
+CLh[ghtaumu_,ghtautau_,mh_] := (ghtaumu*ghtautau)*\[Lambda]h[mh]/((2) (mh^2));
+CLA[gAtaumu_,gAtautau_,mA_] := (gAtaumu*gAtautau)*\[Lambda]A[mA]/((2) (mA^2));
+CLH[gHtaumu_,gHtautau_,mH_] := (gHtaumu*gHtautau)*\[Lambda]H[mH]/((2) (mH^2));
 CLOneLOOP[ghtaumu_,ghtautau_,gAtaumu_,gAtautau_,gHtaumu_,gHtautau_,mh_,mH_,mA_]:=
 CLh[ghtaumu,ghtautau,mh]+CLA[gAtaumu,gAtautau,mA]+CLH[gHtaumu,gHtautau,mH]
 (**************************************************)
