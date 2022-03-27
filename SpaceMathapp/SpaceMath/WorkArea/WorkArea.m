@@ -18,6 +18,8 @@ WinTest3Original::usage="WinTest3"
 
 WinTest4::usage="WinTest4"
 
+WinTest6::usage="WinTest6"
+
 Begin["`Package`"]
 End[]
 
@@ -543,11 +545,11 @@ WinTest4Original[] := Panel[
   					   ], Background -> Lighter[Black, 0.5]
   					 ];	  
   					 
-WinTest4[] := Panel[
+WinTest5Original[] := Panel[
                       Manipulate[
                             Dynamic[
                                 If[
-                                    AllTrue[{P1Min, P1Max,SMsigma},NumericQ],                                                    
+                                    AllTrue[{P1Min, P1Max,SMsigma},NumericQ] && AllTrue[{LabelXX},StringQ],                                                                                    
                                     Switch[
                                               tabNumber,
                                               tab1,
@@ -582,7 +584,7 @@ WinTest4[] := Panel[
            						  																					  1
           						 																					 ], 
       					  																					  ghZZ[sab], 
-      					  																					  sab, P1Min, P1Max, "sin(\[Alpha]-\[Beta])"
+      					  																					  sab, P1Min, P1Max, LabelXX
       					 																					 ]
       				    																				[[SMsigma]]
                                                                                  	                  ]
@@ -648,7 +650,123 @@ WinTest4[] := Panel[
   						{{tab2, 2}, None},
   						ControlPlacement -> Left
   					   ], Background -> Lighter[Black, 0.5]
-  					 ];	  					 					 
+  					 ];	  	
+  					 
+WinTest6[] := Panel[
+                      Manipulate[
+                            Dynamic[
+                                If[
+                                    AllTrue[{P1Min, P1Max,SMsigma},NumericQ] && AllTrue[{LabelXX,ghttParameter1},StringQ],                                                                                    
+                                    Switch[
+                                              tabNumber,
+                                              tab1,
+                                              DynamicModule[
+                                                                    {
+                                                                   	  ghtt, 
+		   															  ghbb,
+		   															  ghtautau,
+		   															  ghWW,
+		   															  ghZZ
+                                                                    },
+                                                                   	  ghtt[a_,Att_,Cab_,tb_] := (g/2) (mt/mW) ((Cos[a]/(tb*Cos[ArcTan[tb]])) - (Sqrt[2] Cab/(g*tb*Cos[ArcTan[tb]]) (mW/mt)*(mt/vev*Att)));
+		   															  ghbb[a_,Abb_,Cab_,tb_] := (g/2) (mb/mW) (((-Sin[a]*tb)/Sin[ArcTan[tb]]) + (Sqrt[2] (Cab*tb)/(g*Sin[ArcTan[tb]]) (mW/mb)*(mb/vev*Abb)));
+		   															  ghtautau[a_,Atata_,Cab_,tb_] := (g/2) (mtau/mW) (((-Sin[a]*tb)/Sin[ArcTan[tb]]) + (Sqrt[2] (Cab*tb)/(g*Sin[ArcTan[tb]]) (mW/mtau)*(mtau/vev*Atata)));
+		   															  ghWW[sab_] := gw*mW*sab;
+		   															  ghZZ[sab_] := gz*mZ*sab;                                                                    
+                                                                    Column[
+                                                                               {
+                                                                                 Style["Coupling Type Vbb"],
+                                                                                 KappaFigE = Dynamic[
+                                                                                 					RZone[
+      					  																					  ghtt[
+           						  																					  ArcCos[Sqrt[1 - sab^2]] + ArcTan[1], 
+           						  																					  1, 
+           						  																					  Sqrt[1 - sab^2], 
+           						  																					  1
+          																											], 
+      					  																					  ghbb[
+           						  																					  ArcCos[Sqrt[1 - sab^2]] + ArcTan[1], 
+           						  																					  1, 
+           						  																					  Sqrt[1 - sab^2], 
+           						  																					  1
+          						 																					 ], 
+      					  																					  ghZZ[ToExpression@ghttParameter1], 
+      					  																					  ToExpression@ghttParameter1, 
+      					  																					  P1Min, 
+      					  																					  P1Max, 
+      					  																					  LabelXX
+      					 																					 ]
+      				    																				[[SMsigma]]
+                                                                                 	                  ]
+                                                                                }
+                                                                               ]
+                                                                    ],
+                                              tab2,
+												Style["Coupling Type Vbb"]
+                    				      ],
+          						    Graphics[{}]
+       							  ]
+    						  ],
+  					        Grid[
+   								   {
+    								{Style["SpaceMath", "Title"], SpanFromLeft, SpanFromLeft},
+    								{Style["HIGGS BOSON DATA", "Subtitle"], SpanFromLeft,SpanFromLeft},
+    								{Style["\[Kappa]-parametrization", Gray, Bold, 15]},
+    								{
+     								  TabView[
+                                                  {
+                          							"\!\(\*SubscriptBox[\(\[Kappa]\), \(b\)]\)" -> Column[tabNumber = tab1; 
+                          							{Row[{"\!\(\*SubscriptBox[\(\[Kappa]\), \(b\)]\) at 1\\[Sigma]"}]}],
+                                                    "\!\(\*SubscriptBox[\(\[Kappa]\), \(b\)]\)" -> Column[tabNumber = tab2; 
+                                                    {Row[{"\!\(\*SubscriptBox[\(\[Kappa]\), \(b\)]\) at 2\\[Sigma]"}]}]
+                  								  },
+                  								 Dynamic@tabNumber
+                  								]
+     								},
+    						{
+     						  Control@{
+     						  				{variablenameP1, Null, Style["Model Parameter name P1", Bold, 12]},
+     						  				InputField[#, String, Background -> Lighter[Gray, 0.7],ImageSize -> 80] &
+     						  			  }, 
+     						  Button[
+     						  	 		Style["Save", Bold, 12],
+     						  	 		ToExpression[variablenameP1, StandardForm,Function[nameP1, nameP1 = P1, HoldFirst]], 
+     						  	 		Background -> Lighter[Blue, 0.7], 
+     						  	 		ImageSize -> 80
+     						  	 	   ]
+     						},
+    						{
+     						  Control@{
+     						  				{P1Min, Null, Style["P1Min", Bold, 12]}, 
+       						  				InputField[#, Number, Background -> Lighter[Gray, 0.7],ImageSize -> 80] &
+       						  			   }, 
+     						  Control@{
+     						  			    {P1Max, Null, Style["P1Max", Bold, 12]}, 
+       										InputField[#, Number, Background -> Lighter[Gray, 0.7],ImageSize -> 80] &
+       									   },
+     						  Control@{
+     						  				{SMsigma, Null, Style["Sigma", Bold, 12]}, 
+       						  				InputField[#, Number, Background -> Lighter[Gray, 0.7],ImageSize -> 80] &
+       						  			   },
+     						  Control@{
+     						  				{LabelXX, "LabelXX", Style["LabelXX", Bold, 12]}, 
+       						  				InputField[#, String, Background -> Lighter[Gray, 0.7],ImageSize -> 80] &
+       						  			   }         						  			           									   
+     						},
+    						{
+     						  Control@{
+     						  				{ghttParameter1, Null, Style["ghttParameter1", Bold, 12]}, 
+       						  				InputField[#, String, Background -> Lighter[Gray, 0.7],ImageSize -> 80] &
+       						  			   }    						  			           									   
+     						}     						
+    					   }, Spacings -> {2, 1}, Background -> Lighter[White, 0.8]
+   						 ],
+  						{{tabNumber, 1}, None},  
+  						{{tab1, 1}, None},
+  						{{tab2, 2}, None},
+  						ControlPlacement -> Left
+  					   ], Background -> Lighter[Black, 0.5]
+  					 ];	  					 				 					 
   					    	       				      				   
     				    	
 WinArea[] := DynamicModule[
