@@ -690,8 +690,8 @@ WinTest6[] := Panel[
            						  																					  Sqrt[1 - sab^2], 
            						  																					  1
           						 																					 ], 
-      					  																					  ghZZ[ToExpression@ghttParameter1], 
-      					  																					  ToExpression@ghttParameter1, 
+      					  																					  ghZZ[ToExpression[ghttParameter1,TraditionalForm]], 
+      					  																					  sab, 
       					  																					  P1Min, 
       					  																					  P1Max, 
       					  																					  LabelXX
